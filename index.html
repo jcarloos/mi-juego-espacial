@@ -2,35 +2,36 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mente+ Espacial</title>
+    <title>Mente+ Pro</title>
     <style>
         body { margin: 0; overflow: hidden; background: #000; }
-        canvas { display: block; background: #000; }
-        #p { position: absolute; top: 10px; left: 10px; color: #0FF; font-size: 20px; font-family: sans-serif; font-weight: bold; }
+        canvas { display: block; background-image: url('https://i.imgur.com/vHIn8m6.jpg'); background-size: cover; }
+        #p { position: absolute; top: 15px; left: 15px; color: #FFF; font-size: 24px; font-family: sans-serif; font-weight: bold; text-shadow: 2px 2px #000; }
     </style>
 </head>
 <body>
-    <div id="p">Puntos: 0</div>
+    <div id="p">MENTE+ Puntos: 0</div>
     <canvas id="j"></canvas>
     <script>
         const c = document.getElementById("j"), x = c.getContext("2d"), m = document.getElementById("p");
         c.width = window.innerWidth; c.height = window.innerHeight;
         const iN = new Image(), iA = new Image();
-        iN.src = 'https://i.imgur.com/6S79E6p.png'; iA.src = 'https://i.imgur.com/8B6v3S7.png';
-        let pts = 0, j = {x: c.width/2-25, y: c.height-100, w: 50, h: 50}, bls = [], ens = [];
-        function crearE() { ens.push({x: Math.random()*(c.width-40), y: -40, w: 40, h: 40, v: 3}); }
-        setInterval(crearE, 1000);
-        c.addEventListener("touchstart", (e) => { bls.push({x: j.x+22, y: j.y, w: 6, h: 12, v: 10}); e.preventDefault(); });
-        c.addEventListener("touchmove", (e) => { j.x = e.touches[0].clientX-25; e.preventDefault(); });
+        iN.src = 'https://i.imgur.com/S9S5vjK.png'; 
+        iA.src = 'https://i.imgur.com/8B6v3S7.png'; 
+        let pts = 0, j = {x: c.width/2-30, y: c.height-120, w: 60, h: 60}, bls = [], ens = [];
+        function crearE() { ens.push({x: Math.random()*(c.width-40), y: -40, w: 45, h: 45, v: 4}); }
+        setInterval(crearE, 800); 
+        c.addEventListener("touchstart", (e) => { bls.push({x: j.x+27, y: j.y, w: 6, h: 15, v: 12}); e.preventDefault(); });
+        c.addEventListener("touchmove", (e) => { j.x = e.touches[0].clientX-30; e.preventDefault(); });
         function loop() {
             x.clearRect(0,0,c.width,c.height);
             x.drawImage(iN, j.x, j.y, j.w, j.h);
-            bls.forEach((b,i)=>{ x.fillStyle="#0FF"; x.fillRect(b.x,b.y,b.w,b.h); b.y-=b.v; if(b.y<-20) bls.splice(i,1); });
+            bls.forEach((b,i)=>{ x.fillStyle="#FF0"; x.fillRect(b.x,b.y,b.w,b.h); b.y-=b.v; if(b.y<-20) bls.splice(i,1); });
             ens.forEach((e,i)=>{ 
                 e.y+=e.v; x.drawImage(iA, e.x, e.y, e.w, e.h);
                 bls.forEach((b,bi)=>{
                     if(b.x<e.x+e.w && b.x+b.w>e.x && b.y<e.y+e.h && b.y+b.h>e.y){
-                        ens.splice(i,1); bls.splice(bi,1); pts+=10; m.innerText="Puntos: "+pts;
+                        ens.splice(i,1); bls.splice(bi,1); pts+=20; m.innerText="MENTE+ Puntos: "+pts;
                     }
                 });
                 if(e.y>c.height) ens.splice(i,1);
